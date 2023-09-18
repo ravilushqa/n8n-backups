@@ -348,7 +348,7 @@
           "string": [
             {
               "name": "repo.owner",
-              "value": "n8n-io"
+              "value": "ravilushqa"
             },
             {
               "name": "repo.name",
@@ -487,6 +487,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2023-09-18T08:40:34.025Z",
-  "versionId": "b6ff3def-a62d-4031-a175-1dcb27f03b62"
+  "updatedAt": "2023-09-18T09:22:13.550Z",
+  "versionId": "0a1b2652-98db-4007-827f-73439b255c0a"
 }
