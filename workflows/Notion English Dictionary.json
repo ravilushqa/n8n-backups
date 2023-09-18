@@ -1,0 +1,297 @@
+{
+  "active": true,
+  "connections": {
+    "Meaning": {
+      "main": [
+        [
+          {
+            "node": "Update meaning",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Examples": {
+      "main": [
+        [
+          {
+            "node": "Update examples",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update examples": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Update meaning": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch added word": {
+      "main": [
+        [
+          {
+            "node": "Examples",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Meaning",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-09-12T06:16:51.517Z",
+  "id": "Q0nHiJwDPP5Ai0UE",
+  "name": "Notion English Dictionary",
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "chat",
+        "prompt": {
+          "messages": [
+            {
+              "content": "=Act as an English teacher and provide a dictionary meaning for the word or phrase:  {{ $json['Word or phrase'] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7b54f710-34ca-4510-92bc-7a0db1c08a7b",
+      "name": "Meaning",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [
+        900,
+        260
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "1mi8gx4pkRwuF8js",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "chat",
+        "prompt": {
+          "messages": [
+            {
+              "content": "=Act as an English teacher and rovide 5 examples of how to use: {{ $json['Word or phrase'] }}. Don't use any explanations. Use notion style formatting:  "
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d7ded482-0247-49ba-af69-1b5523ba628c",
+      "name": "Examples",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [
+        900,
+        440
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "1mi8gx4pkRwuF8js",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "update",
+        "pageId": {
+          "__rl": true,
+          "value": "={{ $('Fetch added word').item.json.id }}",
+          "mode": "id"
+        },
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Meaning|rich_text",
+              "textContent": "={{ $json.message.content }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d3a69540-e3a8-46fa-bcef-d0ee1ea2b7c4",
+      "name": "Update meaning",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        260
+      ],
+      "credentials": {
+        "notionApi": {
+          "id": "NZq7lCXJOaksSAOi",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "update",
+        "pageId": {
+          "__rl": true,
+          "value": "={{ $('Fetch added word').item.json.id }}",
+          "mode": "id"
+        },
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Examples|rich_text",
+              "textContent": "={{ $json.message.content }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "68f783fe-8536-47c3-8d73-414bae87ed41",
+      "name": "Update examples",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        440
+      ],
+      "credentials": {
+        "notionApi": {
+          "id": "NZq7lCXJOaksSAOi",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "mergeByFields": {
+          "values": [
+            {
+              "field1": "id",
+              "field2": "id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "40d0aac8-e808-42a7-b5c6-c0eac26053a5",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        1300,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "197323071",
+        "text": "=[n8n][dict] added:  {{ $json.name }}",
+        "additionalFields": {}
+      },
+      "id": "e19e069a-e1a9-4927-8e32-a65935886bcc",
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        1520,
+        360
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "TPtS8VGWKq5Fa1zl",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "databaseId": {
+          "__rl": true,
+          "value": "36eaa5be-e21f-4950-9678-49036f4318ce",
+          "mode": "list",
+          "cachedResultName": "EnglishDict",
+          "cachedResultUrl": "https://www.notion.so/36eaa5bee21f4950967849036f4318ce"
+        }
+      },
+      "id": "9c3c5a46-7641-443b-8ff3-bf63f21db7b0",
+      "name": "Fetch added word",
+      "type": "n8n-nodes-base.notionTrigger",
+      "typeVersion": 1,
+      "position": [
+        680,
+        360
+      ],
+      "credentials": {
+        "notionApi": {
+          "id": "NZq7lCXJOaksSAOi",
+          "name": "Notion account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Notion Trigger": {
+      "lastTimeChecked": "2023-09-12T06:16:00.000Z"
+    },
+    "node:Fetch added word": {
+      "lastTimeChecked": "2023-09-17T18:02:00.000Z",
+      "possibleDuplicates": [
+        "e08db5ee-9497-4151-af0f-5acf2dcb3b07"
+      ]
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2023-09-17T18:02:04.930Z",
+  "versionId": "c3d61eb0-3c69-44b5-8b4a-5291df793bdd"
+}
