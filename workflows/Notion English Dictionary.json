@@ -1,22 +1,22 @@
 {
   "active": true,
   "connections": {
-    "Meaning": {
+    "Fetch added word": {
       "main": [
         [
           {
-            "node": "Update meaning",
+            "node": "Complete",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Examples": {
+    "Complete": {
       "main": [
         [
           {
-            "node": "Update examples",
+            "node": "parse json",
             "type": "main",
             "index": 0
           }
@@ -27,28 +27,6 @@
       "main": [
         [
           {
-            "node": "Merge",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
-    "Update meaning": {
-      "main": [
-        [
-          {
-            "node": "Merge",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Merge": {
-      "main": [
-        [
-          {
             "node": "Telegram",
             "type": "main",
             "index": 0
@@ -56,16 +34,11 @@
         ]
       ]
     },
-    "Fetch added word": {
+    "parse json": {
       "main": [
         [
           {
-            "node": "Examples",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Meaning",
+            "node": "Update examples",
             "type": "main",
             "index": 0
           }
@@ -79,60 +52,6 @@
   "nodes": [
     {
       "parameters": {
-        "resource": "chat",
-        "prompt": {
-          "messages": [
-            {
-              "content": "=Act as an English teacher and provide a dictionary meaning for the word or phrase:  {{ $json['Word or phrase'] }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "7b54f710-34ca-4510-92bc-7a0db1c08a7b",
-      "name": "Meaning",
-      "type": "n8n-nodes-base.openAi",
-      "typeVersion": 1,
-      "position": [
-        900,
-        260
-      ],
-      "credentials": {
-        "openAiApi": {
-          "id": "1mi8gx4pkRwuF8js",
-          "name": "OpenAi account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "chat",
-        "prompt": {
-          "messages": [
-            {
-              "content": "=Act as an English teacher and rovide 5 examples of how to use: {{ $json['Word or phrase'] }}. Don't use any explanations. Use notion style formatting:  "
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "d7ded482-0247-49ba-af69-1b5523ba628c",
-      "name": "Examples",
-      "type": "n8n-nodes-base.openAi",
-      "typeVersion": 1,
-      "position": [
-        900,
-        440
-      ],
-      "credentials": {
-        "openAiApi": {
-          "id": "1mi8gx4pkRwuF8js",
-          "name": "OpenAi account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "resource": "databasePage",
         "operation": "update",
         "pageId": {
@@ -144,41 +63,15 @@
           "propertyValues": [
             {
               "key": "Meaning|rich_text",
-              "textContent": "={{ $json.message.content }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "d3a69540-e3a8-46fa-bcef-d0ee1ea2b7c4",
-      "name": "Update meaning",
-      "type": "n8n-nodes-base.notion",
-      "typeVersion": 2,
-      "position": [
-        1120,
-        260
-      ],
-      "credentials": {
-        "notionApi": {
-          "id": "NZq7lCXJOaksSAOi",
-          "name": "Notion account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "databasePage",
-        "operation": "update",
-        "pageId": {
-          "__rl": true,
-          "value": "={{ $('Fetch added word').item.json.id }}",
-          "mode": "id"
-        },
-        "propertiesUi": {
-          "propertyValues": [
+              "textContent": "={{ $json.definition }}"
+            },
             {
               "key": "Examples|rich_text",
-              "textContent": "={{ $json.message.content }}"
+              "textContent": "={{ $json.examples.join('\\n') }}"
+            },
+            {
+              "key": "Tags|multi_select",
+              "multiSelectValue": "={{ $json.topics }}"
             }
           ]
         },
@@ -189,8 +82,8 @@
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2,
       "position": [
-        1120,
-        440
+        1260,
+        360
       ],
       "credentials": {
         "notionApi": {
@@ -198,28 +91,6 @@
           "name": "Notion account"
         }
       }
-    },
-    {
-      "parameters": {
-        "mode": "combine",
-        "mergeByFields": {
-          "values": [
-            {
-              "field1": "id",
-              "field2": "id"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "40d0aac8-e808-42a7-b5c6-c0eac26053a5",
-      "name": "Merge",
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 2.1,
-      "position": [
-        1300,
-        360
-      ]
     },
     {
       "parameters": {
@@ -232,7 +103,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        1520,
+        1460,
         360
       ],
       "credentials": {
@@ -240,7 +111,8 @@
           "id": "TPtS8VGWKq5Fa1zl",
           "name": "Telegram account"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -264,7 +136,7 @@
       "type": "n8n-nodes-base.notionTrigger",
       "typeVersion": 1,
       "position": [
-        680,
+        660,
         360
       ],
       "credentials": {
@@ -273,6 +145,50 @@
           "name": "Notion account"
         }
       }
+    },
+    {
+      "parameters": {
+        "resource": "chat",
+        "prompt": {
+          "messages": [
+            {
+              "role": "system",
+              "content": "=I want you to act as an English dictionary that provides JSON-formatted responses. When I input a word, your reply should include four fields: \"word\" containing the word I asked about, \"definition\" providing its meaning, \"examples\" as an array of sentences demonstrating the word's usage, and \"topics\" as an array listing relevant subject areas where the word is commonly used. The entire response should be in valid JSON format."
+            },
+            {
+              "content": "=My first word is \"{{ $json['Word or phrase'] }}\"."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d7ded482-0247-49ba-af69-1b5523ba628c",
+      "name": "Complete",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [
+        860,
+        360
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "1mi8gx4pkRwuF8js",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return JSON.parse($input.first().json.message.content);"
+      },
+      "id": "5ffbc946-0440-4659-b617-880bf78de66f",
+      "name": "parse json",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1060,
+        360
+      ]
     }
   ],
   "pinData": {},
@@ -284,14 +200,14 @@
       "lastTimeChecked": "2023-09-12T06:16:00.000Z"
     },
     "node:Fetch added word": {
-      "lastTimeChecked": "2023-09-17T18:02:00.000Z",
+      "lastTimeChecked": "2023-09-18T10:54:00.000Z",
       "possibleDuplicates": [
-        "e08db5ee-9497-4151-af0f-5acf2dcb3b07"
+        "cda20457-83e7-49f2-855c-57cac9642c6b"
       ]
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-09-17T18:02:04.930Z",
-  "versionId": "c3d61eb0-3c69-44b5-8b4a-5291df793bdd"
+  "updatedAt": "2023-09-18T10:54:55.829Z",
+  "versionId": "0900bcb8-e2f3-4177-8bba-9a2a912e9c0f"
 }
