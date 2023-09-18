@@ -1,0 +1,62 @@
+{
+  "active": false,
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-09-18T10:25:19.543Z",
+  "id": "z6NHHzEOXzmrBdve",
+  "name": "Error workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "71d233b5-61ff-4080-9e90-26a2ea588747",
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        480,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "197323071",
+        "text": "=[n8n] | {{ $json.execution.error.message }} | {{ $json.execution.url }}",
+        "additionalFields": {}
+      },
+      "id": "28476c21-b548-404b-9d42-09a96dcb1ce9",
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "TPtS8VGWKq5Fa1zl",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2023-09-18T10:37:00.558Z",
+  "versionId": "d1f21fb5-c796-4380-ae1e-8dd554c3d3c8"
+}
