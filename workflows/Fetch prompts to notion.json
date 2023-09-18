@@ -1,0 +1,202 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Notion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-09-18T06:58:54.355Z",
+  "id": "aroZQ0TTwBfaqvSE",
+  "name": "Fetch prompts to notion",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "8fa0c3da-0a5e-4c56-bc91-bd24ebddb30b",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        680,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://datasets-server.huggingface.co/rows?dataset=fka%2Fawesome-chatgpt-prompts&config=default&split=train&offset=0&limit=100",
+        "options": {}
+      },
+      "id": "7ef6b41f-9521-4a3c-969d-b431029c695e",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        900,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = items[0].json.rows;\nlet transformedData = [];\n\nfor (const row of rows) {\n  const actPromptPair = {\n    act: row.row.act,\n    prompt: row.row.prompt\n  };\n  transformedData.push({json: actPromptPair});\n}\n\nreturn transformedData;\n"
+      },
+      "id": "07355028-0dcd-485d-9de3-4588ce5ced8a",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://datasets-server.huggingface.co/rows?dataset=fka%2Fawesome-chatgpt-prompts&config=default&split=train&offset=100&limit=100",
+        "options": {}
+      },
+      "id": "96c30767-9c96-434a-8289-152ddd2b1ce1",
+      "name": "HTTP Request1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        900,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = items[0].json.rows;\nlet transformedData = [];\n\nfor (const row of rows) {\n  const actPromptPair = {\n    act: row.row.act,\n    prompt: row.row.prompt\n  };\n  transformedData.push({json: actPromptPair});\n}\n\nreturn transformedData;\n"
+      },
+      "id": "6ee880c1-d761-4291-bbaa-8aff555c7387",
+      "name": "Code1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        520
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "e3bfee56-b180-40a4-bf02-fbe2867c040e",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        1320,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": {
+          "__rl": true,
+          "value": "a71b7d6c-5581-431d-847b-c6d2181380ed",
+          "mode": "list",
+          "cachedResultName": "Prompts",
+          "cachedResultUrl": "https://www.notion.so/a71b7d6c5581431d847bc6d2181380ed"
+        },
+        "title": "={{ $json.act }}",
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Prompt|rich_text",
+              "textContent": "={{ $json.prompt }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9cd44478-3084-4443-9aa7-e218466c98b4",
+      "name": "Notion",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [
+        1540,
+        380
+      ],
+      "credentials": {
+        "notionApi": {
+          "id": "NZq7lCXJOaksSAOi",
+          "name": "Notion account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2023-09-18T07:55:12.063Z",
+  "versionId": "0c269519-d4ef-40c6-9c68-822b7df3ee4e"
+}
