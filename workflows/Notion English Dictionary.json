@@ -1,17 +1,6 @@
 {
   "active": true,
   "connections": {
-    "Fetch added word": {
-      "main": [
-        [
-          {
-            "node": "Complete",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Complete": {
       "main": [
         [
@@ -27,7 +16,7 @@
       "main": [
         [
           {
-            "node": "Telegram",
+            "node": "Split In Batches",
             "type": "main",
             "index": 0
           }
@@ -39,6 +28,83 @@
         [
           {
             "node": "Update examples",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF": {
+      "main": [
+        [
+          {
+            "node": "Set1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update": {
+      "main": [
+        [
+          {
+            "node": "IF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Split In Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Split In Batches": {
+      "main": [
+        [
+          {
+            "node": "Complete",
             "type": "main",
             "index": 0
           }
@@ -56,7 +122,7 @@
         "operation": "update",
         "pageId": {
           "__rl": true,
-          "value": "={{ $('Fetch added word').item.json.id }}",
+          "value": "={{ $('Merge').item.json.id }}",
           "mode": "id"
         },
         "propertiesUi": {
@@ -70,8 +136,7 @@
               "textContent": "={{ $json.examples.join('\\n') }}"
             },
             {
-              "key": "Tags|multi_select",
-              "multiSelectValue": "={{ $json.topics }}"
+              "key": "Trigger AI|checkbox"
             }
           ]
         },
@@ -82,61 +147,7 @@
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2,
       "position": [
-        1260,
-        360
-      ],
-      "credentials": {
-        "notionApi": {
-          "id": "NZq7lCXJOaksSAOi",
-          "name": "Notion account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "chatId": "197323071",
-        "text": "=[n8n][dict] added:  {{ $json.name }}",
-        "additionalFields": {}
-      },
-      "id": "e19e069a-e1a9-4927-8e32-a65935886bcc",
-      "name": "Telegram",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1,
-      "position": [
-        1460,
-        360
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "TPtS8VGWKq5Fa1zl",
-          "name": "Telegram account"
-        }
-      },
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "pollTimes": {
-          "item": [
-            {
-              "mode": "everyMinute"
-            }
-          ]
-        },
-        "databaseId": {
-          "__rl": true,
-          "value": "36eaa5be-e21f-4950-9678-49036f4318ce",
-          "mode": "list",
-          "cachedResultName": "EnglishDict",
-          "cachedResultUrl": "https://www.notion.so/36eaa5bee21f4950967849036f4318ce"
-        }
-      },
-      "id": "9c3c5a46-7641-443b-8ff3-bf63f21db7b0",
-      "name": "Fetch added word",
-      "type": "n8n-nodes-base.notionTrigger",
-      "typeVersion": 1,
-      "position": [
-        660,
+        2020,
         360
       ],
       "credentials": {
@@ -167,7 +178,7 @@
       "type": "n8n-nodes-base.openAi",
       "typeVersion": 1,
       "position": [
-        860,
+        1660,
         360
       ],
       "credentials": {
@@ -186,8 +197,160 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1060,
+        1820,
         360
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json['Trigger AI'] }}",
+              "value2": "={{ true }}"
+            }
+          ]
+        }
+      },
+      "id": "0d357a09-45ab-4bd1-9785-5478a606d377",
+      "name": "IF",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        860,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "event": "pagedUpdatedInDatabase",
+        "databaseId": {
+          "__rl": true,
+          "value": "36eaa5be-e21f-4950-9678-49036f4318ce",
+          "mode": "list",
+          "cachedResultName": "EnglishDict",
+          "cachedResultUrl": "https://www.notion.so/36eaa5bee21f4950967849036f4318ce"
+        }
+      },
+      "id": "2dee223f-6e7b-4dfe-9ea3-65838e6d6b35",
+      "name": "Update",
+      "type": "n8n-nodes-base.notionTrigger",
+      "typeVersion": 1,
+      "position": [
+        700,
+        540
+      ],
+      "credentials": {
+        "notionApi": {
+          "id": "NZq7lCXJOaksSAOi",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "databaseId": {
+          "__rl": true,
+          "value": "36eaa5be-e21f-4950-9678-49036f4318ce",
+          "mode": "list",
+          "cachedResultName": "EnglishDict",
+          "cachedResultUrl": "https://www.notion.so/36eaa5bee21f4950967849036f4318ce"
+        }
+      },
+      "id": "9c3c5a46-7641-443b-8ff3-bf63f21db7b0",
+      "name": "Add",
+      "type": "n8n-nodes-base.notionTrigger",
+      "typeVersion": 1,
+      "position": [
+        700,
+        360
+      ],
+      "credentials": {
+        "notionApi": {
+          "id": "NZq7lCXJOaksSAOi",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "ID",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a809dab7-1345-45d8-8ef2-51bf2c9dde51",
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        840,
+        360
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "66229501-0629-4630-9a83-177a4bf75fa5",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        1200,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "ID",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "cbbdecde-b1f4-4562-9cf8-2ede05a2ab80",
+      "name": "Set1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "fb9a5588-7f4f-4695-9bc2-665c57562374",
+      "name": "Split In Batches",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 2,
+      "position": [
+        1420,
+        380
       ]
     }
   ],
@@ -200,11 +363,29 @@
       "lastTimeChecked": "2023-09-12T06:16:00.000Z"
     },
     "node:Fetch added word": {
-      "lastTimeChecked": "2023-09-21T11:39:00.000Z"
+      "lastTimeChecked": "2023-09-23T06:28:00.000Z",
+      "possibleDuplicates": [
+        "330826ab-99ce-4714-bc91-eec6dc9b89c6",
+        "1cf71a85-8fc0-41d1-b4f7-21782ad8164b"
+      ]
+    },
+    "node:Update": {
+      "lastTimeChecked": "2023-09-23T10:28:00.000Z",
+      "possibleDuplicates": [
+        "6d451844-17c4-4abd-b3a1-4e3a2b62401e",
+        "c355b837-1bb0-4cf1-945b-232a3c74d5eb"
+      ]
+    },
+    "node:Add": {
+      "lastTimeChecked": "2023-09-23T10:28:00.000Z",
+      "possibleDuplicates": [
+        "6d451844-17c4-4abd-b3a1-4e3a2b62401e",
+        "c355b837-1bb0-4cf1-945b-232a3c74d5eb"
+      ]
     }
   },
   "tags": [],
-  "triggerCount": 1,
-  "updatedAt": "2023-09-21T11:39:37.738Z",
-  "versionId": "0900bcb8-e2f3-4177-8bba-9a2a912e9c0f"
+  "triggerCount": 2,
+  "updatedAt": "2023-09-23T10:28:59.697Z",
+  "versionId": "c0f67924-f198-4f70-8c3a-35f3ecca0e6e"
 }
