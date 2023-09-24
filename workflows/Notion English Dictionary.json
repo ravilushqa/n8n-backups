@@ -73,7 +73,7 @@
           {
             "node": "Merge",
             "type": "main",
-            "index": 0
+            "index": 1
           }
         ]
       ]
@@ -89,22 +89,44 @@
         ]
       ]
     },
-    "Set1": {
-      "main": [
-        [
-          {
-            "node": "Merge",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
     "Split In Batches": {
       "main": [
         [
           {
             "node": "Complete",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion": {
+      "main": [
+        [
+          {
+            "node": "Set2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Notion",
             "type": "main",
             "index": 0
           }
@@ -147,8 +169,8 @@
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2,
       "position": [
-        2020,
-        360
+        2000,
+        280
       ],
       "credentials": {
         "notionApi": {
@@ -160,14 +182,15 @@
     {
       "parameters": {
         "resource": "chat",
+        "model": "gpt-4",
         "prompt": {
           "messages": [
             {
               "role": "system",
-              "content": "=I want you to act as an English dictionary that provides JSON-formatted responses. When I input a word, your reply should include four fields: \"word\" containing the word I asked about, \"definition\" providing its meaning, \"examples\" as an array of sentences demonstrating the word's usage, and \"topics\" as an array listing relevant subject areas where the word is commonly used. The entire response should be in valid JSON format."
+              "content": "=I want you to act as an English dictionary that provides JSON-formatted responses. When I input a word or phrase, your reply should include four fields: \"word\" containing the word or phrase I asked about, \"definition\" providing its meaning, \"examples\" as an array of sentences demonstrating the word's usage, and \"topics\" as an array listing relevant subject areas where the word is commonly used. The entire response should be in valid JSON format."
             },
             {
-              "content": "=My first word is \"{{ $json['Word or phrase'] }}\"."
+              "content": "=My first word or phrase is \"{{ $json['Word or phrase'] }}\"."
             }
           ]
         },
@@ -178,8 +201,8 @@
       "type": "n8n-nodes-base.openAi",
       "typeVersion": 1,
       "position": [
-        1660,
-        360
+        1640,
+        280
       ],
       "credentials": {
         "openAiApi": {
@@ -197,8 +220,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1820,
-        360
+        1800,
+        280
       ]
     },
     {
@@ -252,7 +275,8 @@
           "id": "NZq7lCXJOaksSAOi",
           "name": "Notion account"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -303,7 +327,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
       "position": [
-        840,
+        1020,
         360
       ]
     },
@@ -314,8 +338,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        1200,
-        380
+        1220,
+        300
       ]
     },
     {
@@ -335,7 +359,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
       "position": [
-        1040,
+        1020,
         520
       ]
     },
@@ -350,7 +374,81 @@
       "typeVersion": 2,
       "position": [
         1420,
-        380
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "getAll",
+        "databaseId": {
+          "__rl": true,
+          "value": "36eaa5be-e21f-4950-9678-49036f4318ce",
+          "mode": "list",
+          "cachedResultName": "EnglishDict",
+          "cachedResultUrl": "https://www.notion.so/36eaa5bee21f4950967849036f4318ce"
+        },
+        "filterType": "json",
+        "filterJson": "{     \"property\": \"Trigger AI\",     \"checkbox\": {         \"equals\": true    }  }",
+        "options": {}
+      },
+      "id": "ffff5c0b-89bd-40cb-a570-3469938cbddf",
+      "name": "Notion",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [
+        860,
+        200
+      ],
+      "credentials": {
+        "notionApi": {
+          "id": "NZq7lCXJOaksSAOi",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "ID",
+              "value": "={{ $json.id }}"
+            },
+            {
+              "name": "Word or phrase",
+              "value": "={{ $json.name }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4dbf2d9d-d0ea-4842-9fca-cb7eb6c90d29",
+      "name": "Set2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        1020,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes"
+            }
+          ]
+        }
+      },
+      "id": "d6a82e84-bf44-41ce-8276-470e0f52025c",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        700,
+        200
       ]
     }
   ],
@@ -370,20 +468,20 @@
       ]
     },
     "node:Update": {
-      "lastTimeChecked": "2023-09-23T13:28:00.000Z",
+      "lastTimeChecked": "2023-09-24T06:18:00.000Z",
       "possibleDuplicates": [
-        "95e70e7f-ddda-4e93-8e9f-306d56906d14"
+        "e98422e7-409d-446a-8083-576464b73158"
       ]
     },
     "node:Add": {
-      "lastTimeChecked": "2023-09-23T13:28:00.000Z",
-      "possibleDuplicates": [
-        "95e70e7f-ddda-4e93-8e9f-306d56906d14"
-      ]
+      "lastTimeChecked": "2023-09-24T11:59:00.000Z"
+    },
+    "node:Schedule Trigger": {
+      "recurrencyRules": []
     }
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2023-09-23T13:28:58.793Z",
-  "versionId": "c0f67924-f198-4f70-8c3a-35f3ecca0e6e"
+  "updatedAt": "2023-09-24T11:59:35.368Z",
+  "versionId": "82d7b715-135f-4f94-95c6-928f0d0464ac"
 }
