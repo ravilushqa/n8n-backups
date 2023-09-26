@@ -449,12 +449,16 @@
       "position": [
         700,
         200
-      ]
+      ],
+      "disabled": true
     }
   ],
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "z6NHHzEOXzmrBdve"
   },
   "staticData": {
     "node:Notion Trigger": {
@@ -474,7 +478,7 @@
       ]
     },
     "node:Add": {
-      "lastTimeChecked": "2023-09-25T23:59:00.000Z",
+      "lastTimeChecked": "2023-09-26T07:44:00.000Z",
       "possibleDuplicates": [
         "c990e510-6341-4d03-aa59-de5881cd182d"
       ]
@@ -484,7 +488,7 @@
     }
   },
   "tags": [],
-  "triggerCount": 2,
-  "updatedAt": "2023-09-25T23:59:36.889Z",
-  "versionId": "82d7b715-135f-4f94-95c6-928f0d0464ac"
+  "triggerCount": 1,
+  "updatedAt": "2023-09-26T07:44:17.374Z",
+  "versionId": "024102ed-a896-4fa7-bbc1-c039736908ce"
 }
