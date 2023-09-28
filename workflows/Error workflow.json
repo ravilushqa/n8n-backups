@@ -31,7 +31,7 @@
     {
       "parameters": {
         "chatId": "197323071",
-        "text": "=[n8n] | {{ $json.execution.error.message }} | {{ $json.execution.url }}",
+        "text": "=[n8n] | {{ $json.execution.error.message }}{{ $json.trigger.error.message }} | {{ $json.execution.url }}{{ $json.trigger.url }}",
         "additionalFields": {}
       },
       "id": "28476c21-b548-404b-9d42-09a96dcb1ce9",
@@ -57,6 +57,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2023-09-18T10:37:00.558Z",
-  "versionId": "d1f21fb5-c796-4380-ae1e-8dd554c3d3c8"
+  "updatedAt": "2023-09-28T04:41:03.964Z",
+  "versionId": "ca103d9d-9200-4c3a-a6ef-c38473181fbb"
 }
