@@ -1,0 +1,105 @@
+{
+  "active": false,
+  "connections": {
+    "GitHub Document Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Summarization Chain",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Summarization Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-10-07T08:22:10.119Z",
+  "id": "KACF0XFhTklBl1wz",
+  "meta": null,
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "b91468f7-f0e1-4169-bae8-aace87b94f19",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        680,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "repository": "https://github.com/ravilushqa/go-event-driven",
+        "additionalOptions": {}
+      },
+      "id": "e341aaf7-7547-4dfb-a442-90a728060918",
+      "name": "GitHub Document Loader",
+      "type": "@n8n/n8n-nodes-langchain.documentGithubLoader",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        540
+      ],
+      "credentials": {
+        "githubApi": {
+          "id": "x9kQutFpJJcfm6fc",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "016a5952-a6b8-4291-b285-ff7eaccabda9",
+      "name": "Summarization Chain",
+      "type": "@n8n/n8n-nodes-langchain.chainSummarization",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "c1bccce1-79c0-4f2a-b55b-791d5bbb02c9",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        940,
+        400
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "1mi8gx4pkRwuF8js",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2023-10-07T08:22:10.119Z",
+  "versionId": "7a283c57-882b-47d9-8e4f-0a3ebf5fd93b"
+}
