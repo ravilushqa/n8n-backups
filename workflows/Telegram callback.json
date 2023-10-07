@@ -1,0 +1,77 @@
+{
+  "active": true,
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-10-07T07:17:34.842Z",
+  "id": "u90IQeI4oMjlF2aA",
+  "meta": null,
+  "name": "Telegram callback",
+  "nodes": [
+    {
+      "parameters": {
+        "chatId": "={{ $json.chat_id }}",
+        "text": "={{ $json.text }}",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "4b3238af-a2cf-4012-9809-e2957a5828af",
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        900,
+        360
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "TPtS8VGWKq5Fa1zl",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "callback_query"
+        ],
+        "additionalFields": {}
+      },
+      "id": "4548aa6e-7a7f-49ba-bf65-f9f00fb4fd8e",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        560,
+        360
+      ],
+      "webhookId": "d491d5ce-729e-4d73-b9d0-aa01c9a07f16",
+      "credentials": {
+        "telegramApi": {
+          "id": "TPtS8VGWKq5Fa1zl",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2023-10-07T08:34:46.859Z",
+  "versionId": "d0de9687-bd91-412c-b86b-e22227efb309"
+}
