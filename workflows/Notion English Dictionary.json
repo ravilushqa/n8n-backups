@@ -136,6 +136,7 @@
   },
   "createdAt": "2023-09-12T06:16:51.517Z",
   "id": "Q0nHiJwDPP5Ai0UE",
+  "meta": null,
   "name": "Notion English Dictionary",
   "nodes": [
     {
@@ -457,8 +458,7 @@
   "settings": {
     "executionOrder": "v1",
     "saveManualExecutions": true,
-    "callerPolicy": "workflowsFromSameOwner",
-    "errorWorkflow": "z6NHHzEOXzmrBdve"
+    "callerPolicy": "workflowsFromSameOwner"
   },
   "staticData": {
     "node:Notion Trigger": {
@@ -478,7 +478,7 @@
       ]
     },
     "node:Add": {
-      "lastTimeChecked": "2023-09-28T05:34:00.000Z",
+      "lastTimeChecked": "2023-10-07T08:17:00.000Z",
       "possibleDuplicates": [
         "c990e510-6341-4d03-aa59-de5881cd182d"
       ]
@@ -489,6 +489,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-09-28T05:34:58.080Z",
-  "versionId": "0ca396e3-331c-40be-8949-df4ae6cfade1"
+  "updatedAt": "2023-10-07T08:17:49.942Z",
+  "versionId": "a726619d-ff2c-40a7-a198-ad63c73a0352"
 }
