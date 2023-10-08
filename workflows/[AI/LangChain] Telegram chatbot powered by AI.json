@@ -137,7 +137,7 @@
   "nodes": [
     {
       "parameters": {
-        "model": "gpt-4",
+        "model": "gpt-3.5-turbo-16k",
         "options": {
           "temperature": 0.7
         }
@@ -469,6 +469,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-10-07T08:49:03.036Z",
-  "versionId": "8ef2cfcf-f1c0-45e0-82da-fdeac491bd82"
+  "updatedAt": "2023-10-07T16:02:13.827Z",
+  "versionId": "b6ed68f9-1cc6-47dd-aa2f-3d370a60d754"
 }
