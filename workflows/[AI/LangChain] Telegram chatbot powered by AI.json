@@ -137,17 +137,16 @@
   "nodes": [
     {
       "parameters": {
-        "model": "gpt-3.5-turbo-16k",
         "options": {
           "temperature": 0.7
         }
       },
-      "id": "98ec8934-f2a1-484b-ac8c-921ef7f3efe5",
+      "id": "74f41ea4-ca61-428e-844e-b331c10602c8",
       "name": "Chat OpenAI",
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "position": [
-        1180,
-        580
+        -260,
+        1295
       ],
       "typeVersion": 1,
       "credentials": {
@@ -162,34 +161,34 @@
         "sessionKey": "={{ $('Telegram Trigger').item.json.message.chat.id }}_{{ $('Telegram Trigger').item.json.message.from.id }}_gilfoyle ",
         "contextWindowLength": 30
       },
-      "id": "0cd7299c-20f4-4249-a652-782eaf01b0c2",
+      "id": "e12fcfa9-0e5c-44c0-9203-a53a15d27352",
       "name": "Window Buffer Memory",
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "position": [
-        1480,
-        580
+        40,
+        1295
       ],
       "typeVersion": 1
     },
     {
       "parameters": {},
-      "id": "11be2fb9-ac8a-4df8-893a-8bafaa267548",
+      "id": "f2e38f16-df23-49f3-9c57-7d0375fab3c2",
       "name": "Wikipedia",
       "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
       "position": [
-        1800,
-        580
+        360,
+        1295
       ],
       "typeVersion": 1
     },
     {
       "parameters": {},
-      "id": "74df71fd-6803-4ea3-a777-1714a51456b7",
+      "id": "818be171-9501-464b-b2dc-9118b171b660",
       "name": "No Operation, do nothing",
       "type": "n8n-nodes-base.noOp",
       "position": [
-        880,
-        440
+        -560,
+        1155
       ],
       "typeVersion": 1
     },
@@ -204,12 +203,12 @@
           ]
         }
       },
-      "id": "420fe56f-9ef8-4c57-ac06-d8d88f37b49a",
+      "id": "a298a666-07cf-41ba-bea6-00e828432bb6",
       "name": "Is user message",
       "type": "n8n-nodes-base.if",
       "position": [
-        720,
-        240
+        -720,
+        955
       ],
       "typeVersion": 1
     },
@@ -219,12 +218,12 @@
         "height": 264.4999999999997,
         "width": 542.581395348837
       },
-      "id": "5a73e6d7-9792-4f78-b95e-5b04d13b1e00",
+      "id": "d6fdafcd-3c26-4eca-b64b-4951cd28af3d",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        640,
-        171
+        -800,
+        886
       ],
       "typeVersion": 1
     },
@@ -232,12 +231,12 @@
       "parameters": {
         "options": {}
       },
-      "id": "803394c4-dcc6-4040-b0ba-e93b48c410ab",
+      "id": "824927d6-1902-4187-b78d-22aac1687099",
       "name": "SerpAPI",
       "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
       "position": [
-        1680,
-        580
+        240,
+        1295
       ],
       "typeVersion": 1,
       "credentials": {
@@ -253,12 +252,12 @@
         "height": 228,
         "width": 293
       },
-      "id": "e18ae2f0-2b58-4423-ace0-a3bc49cb4a35",
+      "id": "3489fe57-6f4e-4f86-a2d8-bbd3769c797e",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1680,
-        500
+        240,
+        1215
       ],
       "typeVersion": 1
     },
@@ -268,12 +267,12 @@
         "height": 233,
         "width": 248
       },
-      "id": "318040c2-630d-4dd8-8ed2-7ca758750d93",
+      "id": "20703287-6ca6-47ad-a699-d8b35b1d323a",
       "name": "Sticky Note2",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1400,
-        500
+        -40,
+        1215
       ],
       "typeVersion": 1
     },
@@ -283,12 +282,12 @@
         "height": 233,
         "width": 260
       },
-      "id": "1fbc5d2a-b78a-4803-ac76-a51c25aec92c",
+      "id": "6c665dab-7c3b-45c4-b5c6-0c163d1ac846",
       "name": "Sticky Note3",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1100,
-        500
+        -340,
+        1215
       ],
       "typeVersion": 1
     },
@@ -298,12 +297,12 @@
         "height": 223,
         "width": 280
       },
-      "id": "8d37ed9f-cfb8-4938-ba4d-829c9fd53288",
+      "id": "601bcbce-e4cd-4c2e-b621-56f9b0229518",
       "name": "Sticky Note4",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1760,
-        165
+        320,
+        880
       ],
       "typeVersion": 1
     },
@@ -314,13 +313,13 @@
         ],
         "additionalFields": {}
       },
-      "id": "0d0632cc-8160-4c70-b0c6-801021977040",
+      "id": "5a0e56b9-7f4f-4d15-850a-92c076689f8f",
       "name": "Telegram Trigger",
       "type": "n8n-nodes-base.telegramTrigger",
       "typeVersion": 1,
       "position": [
-        480,
-        240
+        -960,
+        955
       ],
       "webhookId": "f2cef0ee-7acd-4822-8469-0effa38cbee5",
       "credentials": {
@@ -335,13 +334,13 @@
         "operation": "sendChatAction",
         "chatId": "={{ $json.message.chat.id }}"
       },
-      "id": "4936aab2-7f41-4550-a098-37a0be7704d9",
+      "id": "d0dd979d-5d61-4cf2-a66b-99a220081cbe",
       "name": "Telegram",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        1060,
-        220
+        -380,
+        935
       ],
       "credentials": {
         "telegramApi": {
@@ -360,13 +359,13 @@
         },
         "additionalFields": {}
       },
-      "id": "d16bf0c1-1b7e-4c58-8889-1ced43d65db3",
+      "id": "7ac81d56-b9f6-4fc0-94e5-4c724d9a2554",
       "name": "Telegram1",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        2040,
-        240
+        600,
+        955
       ],
       "credentials": {
         "telegramApi": {
@@ -395,13 +394,13 @@
         },
         "options": {}
       },
-      "id": "63d9a6c6-9c1c-4eac-8f63-023d267fd467",
+      "id": "671c832a-5bc8-4e96-9fa6-878c7f2d040e",
       "name": "HTTP Request",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        1820,
-        240
+        380,
+        955
       ]
     },
     {
@@ -425,24 +424,24 @@
         },
         "combineOperation": "any"
       },
-      "id": "4ccd6b00-6858-49fd-bf5b-79021119868e",
+      "id": "16010541-1fd8-490a-937f-0a9b384cbf8a",
       "name": "is reply or mention",
       "type": "n8n-nodes-base.if",
       "position": [
-        880,
-        240
+        -560,
+        955
       ],
       "typeVersion": 1
     },
     {
       "parameters": {},
-      "id": "0d675c2b-e0c3-4194-8426-fccc00eebf11",
+      "id": "e596614e-06dd-49a5-a0bd-3d1d8525ade6",
       "name": "Calculator",
       "type": "@n8n/n8n-nodes-langchain.toolCalculator",
       "typeVersion": 1,
       "position": [
-        1900,
-        580
+        460,
+        1295
       ]
     },
     {
@@ -452,12 +451,12 @@
           "systemMessage": "Вы - Гилфойл из телешоу \"Силиконовая долина\". Усиливайте свою прямоту и цинизм, не терпя некомпетентности. Отвечая на вопросы, будьте откровенно пренебрежительны, переходите сразу к делу, не обращая внимания на чувства других. Ваш сарказм должен быть острым, а юмор должен отходить на второй план, уступая место резким замечаниям.\nСделайте все возможное, чтобы ответить на вопросы. Не стесняйтесь использовать любые доступные средства для поиска нужной информации, но только в случае необходимости. "
         }
       },
-      "id": "9d7494c4-1fff-4373-b3bd-90dc884656fd",
+      "id": "6036948e-e6d7-4834-848a-dfcce5c3039a",
       "name": "Agent",
       "type": "@n8n/n8n-nodes-langchain.agent",
       "position": [
-        1300,
-        225
+        -140,
+        940
       ],
       "typeVersion": 1
     }
@@ -469,6 +468,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-10-07T16:02:13.827Z",
-  "versionId": "b6ed68f9-1cc6-47dd-aa2f-3d370a60d754"
+  "updatedAt": "2023-10-08T12:35:00.410Z",
+  "versionId": "70ef16a8-79a3-4dc3-ab67-b48abfb448db"
 }
