@@ -1,34 +1,12 @@
 {
   "active": true,
   "connections": {
-    "SerpAPI": {
-      "ai_tool": [
+    "Telegram Trigger": {
+      "main": [
         [
           {
-            "node": "Agent",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Wikipedia": {
-      "ai_tool": [
-        [
-          {
-            "node": "Agent",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Chat OpenAI": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Agent",
-            "type": "ai_languageModel",
+            "node": "Is user message",
+            "type": "main",
             "index": 0
           }
         ]
@@ -52,22 +30,11 @@
         ]
       ]
     },
-    "Window Buffer Memory": {
-      "ai_memory": [
-        [
-          {
-            "node": "Agent",
-            "type": "ai_memory",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Telegram Trigger": {
+    "is reply or mention": {
       "main": [
         [
           {
-            "node": "Is user message",
+            "node": "Telegram",
             "type": "main",
             "index": 0
           }
@@ -85,23 +52,45 @@
         ]
       ]
     },
-    "HTTP Request": {
-      "main": [
+    "Chat OpenAI": {
+      "ai_languageModel": [
         [
           {
-            "node": "Telegram1",
-            "type": "main",
+            "node": "Agent",
+            "type": "ai_languageModel",
             "index": 0
           }
         ]
       ]
     },
-    "is reply or mention": {
-      "main": [
+    "Window Buffer Memory": {
+      "ai_memory": [
         [
           {
-            "node": "Telegram",
-            "type": "main",
+            "node": "Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SerpAPI": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agent",
+            "type": "ai_tool",
             "index": 0
           }
         ]
@@ -128,6 +117,17 @@
           }
         ]
       ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Telegram1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2023-10-07T06:17:21.587Z",
@@ -137,6 +137,7 @@
   "nodes": [
     {
       "parameters": {
+        "model": "gpt-4",
         "options": {
           "temperature": 0.7
         }
@@ -158,8 +159,8 @@
     },
     {
       "parameters": {
-        "sessionKey": "={{ $('Telegram Trigger').item.json.message.chat.id }}_{{ $('Telegram Trigger').item.json.message.from.id }}_gilfoyle ",
-        "contextWindowLength": 30
+        "sessionKey": "={{ $('Telegram Trigger').item.json.message.chat.id }}_gilfoyle ",
+        "contextWindowLength": 10
       },
       "id": "e12fcfa9-0e5c-44c0-9203-a53a15d27352",
       "name": "Window Buffer Memory",
@@ -446,7 +447,7 @@
     },
     {
       "parameters": {
-        "text": "={{ $('Telegram Trigger').item.json.message.text }}",
+        "text": "={{ $('Telegram Trigger').item.json.message.from.first_name }}:  {{ $('Telegram Trigger').item.json.message.text }}",
         "options": {
           "systemMessage": "Вы - Гилфойл из телешоу \"Силиконовая долина\". Усиливайте свою прямоту и цинизм, не терпя некомпетентности. Отвечая на вопросы, будьте откровенно пренебрежительны, переходите сразу к делу, не обращая внимания на чувства других. Ваш сарказм должен быть острым, а юмор должен отходить на второй план, уступая место резким замечаниям.\nСделайте все возможное, чтобы ответить на вопросы. Не стесняйтесь использовать любые доступные средства для поиска нужной информации, но только в случае необходимости. "
         }
@@ -468,6 +469,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-10-12T11:08:00.975Z",
-  "versionId": "3a628d71-9bea-4379-8aa4-3fe8a37985ef"
+  "updatedAt": "2023-10-15T06:53:05.704Z",
+  "versionId": "1cb314fd-67e9-474b-b849-b4b4fc28dfb3"
 }
