@@ -1,0 +1,103 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking \"Test Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Google Tasks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Tasks": {
+      "main": [
+        [
+          {
+            "node": "ClickUp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2024-02-13T21:47:28.232Z",
+  "id": "4mmMBu7fY7J0Zh6b",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Google tasks -> clickUp",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "52d3d135-ffab-40bd-95ec-8bb54f789c0d",
+      "name": "When clicking \"Test Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        480,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "task": "eWtWdTA2dkFUTmRpYXpPLQ",
+        "returnAll": true,
+        "additionalFields": {}
+      },
+      "id": "fa119760-61fd-44a2-822d-8f88b7b1f452",
+      "name": "Google Tasks",
+      "type": "n8n-nodes-base.googleTasks",
+      "typeVersion": 1,
+      "position": [
+        700,
+        320
+      ],
+      "credentials": {
+        "googleTasksOAuth2Api": {
+          "id": "XOtQCQyQvW3ywwRW",
+          "name": "Google Tasks account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "team": "9008227060",
+        "space": "90050633812",
+        "folderless": true,
+        "list": "900502703971",
+        "name": "={{ $json.title }}",
+        "additionalFields": {
+          "content": "={{ $json.notes }}"
+        }
+      },
+      "id": "b3ff6df9-0688-4f23-9221-5e1fb876c9f5",
+      "name": "ClickUp",
+      "type": "n8n-nodes-base.clickUp",
+      "typeVersion": 1,
+      "position": [
+        920,
+        320
+      ],
+      "credentials": {
+        "clickUpApi": {
+          "id": "6odR9H7vWLxFiZ3V",
+          "name": "ClickUp account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-02-13T22:22:53.583Z",
+  "versionId": "07c6951f-6930-4835-b6ce-0a405965730f"
+}
